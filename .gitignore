@@ -1,0 +1,10 @@
+node_modules/
+
+.env
+
+docker-compose.override.yml
+*.pid
+
+# Build output
+dist/
+build/
