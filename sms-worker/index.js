@@ -1,12 +1,12 @@
 require("dotenv").config();
-require('../config/db')();
+require("./config/db")();
 
-const Log = require("../models/Log");
-const {smsQueue} = require("../queues");
-const sendSms = require("../services/smsService");
+const Log = require("./models/Log");
+const { smsQueue } = require("./queues");
+const sendSms = require("./services/smsService");
 
 smsQueue.process(async (job) => {
-    await sendSms(job.data);
+  await sendSms(job.data);
 });
 
 smsQueue.on("completed", async (job) => {

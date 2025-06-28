@@ -7,17 +7,19 @@ const emailController = async (req, res) => {
   const error = validateEmail(email);
   if (error) return res.status(400).send(error);
 
-  await emailQueue.add(email)
+  await emailQueue.add(email);
+  console.log("Email Queued")
   res.send("Email Queued");
 };
 
 const smsController = async (req, res) => {
   let sms = req.body;
-  const error = validateSms(sms)
-  if(error) return res.status(400).send(error);
+  const error = validateSms(sms);
+  if (error) return res.status(400).send(error);
 
-  await smsQueue.add(sms)
+  await smsQueue.add(sms);
+  console.log("Sms queued")
   res.send("Sms Queued");
-}
+};
 
 module.exports = { emailController, smsController };

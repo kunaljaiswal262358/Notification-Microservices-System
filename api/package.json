@@ -1,5 +1,5 @@
 {
-  "name": "microservices-notification-system",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,10 @@
   "dependencies": {
     "bull": "^4.16.5",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "ioredis": "^5.6.1",
     "joi": "^17.13.3",
-    "mongoose": "^8.16.0",
-    "nodemailer": "^7.0.3",
-    "twilio": "^5.7.1"
+    "mongoose": "^8.16.1"
   }
 }

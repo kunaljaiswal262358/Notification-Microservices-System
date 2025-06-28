@@ -2,66 +2,20 @@ version: "3.9"
 
 services:
   api:
-    build: .
+    build: ./api
     container_name: notification-api
     ports:
     - 5000:5000
-    environment:
-    - MONGO_URI=${MONGO_URI}
-    - REDIS_URL=${REDIS_URL}
-    volumes:
-    - .:/app
-    depends_on:
-    - mongo
-    - redis
+    env_file: ./api/.env
   
   email-worker:
-    build: .
+    build: ./email-worker
     container_name: email-worker
-    command: node worker/emailWorker.js
-    environment:
-    - MONGO_URI=${MONGO_URI}
-    - REDIS_URL=${REDIS_URL}
-    - EMAIL_USER=${EMAIL_USER}
-    - EMAIL_PASS=${EMAIL_PASS}
+    env_file: ./email-worker/.env
     volumes:
-    - .:/app
-    depends_on:
-    - mongo
-    - redis
+    - ./email-worker:/app
 
   sms-worker:
-    build: .
+    build: ./sms-worker
     container_name: sms-worker
-    command: node worker/smsWorker.js
-    environment:
-    - MONGO_URI=${MONGO_URI}
-    - REDIS_URL=${REDIS_URL}
-    - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
-    - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
-    - TWILIO_VERIFIED_SID=${TWILIO_VERIFIED_SID}
-    volumes:
-    - .:/app
-    depends_on:
-    - mongo
-    - redis
-
-  mongo:
-    image: mongo
-    container_name: mongo-db
-    ports:
-    - 27017:27017
-    volumes:
-    - microservices-notification-system:/data/db
-
-  redis:
-    image: redis
-    container_name: redis-server
-    ports:
-    - 6379:6379
-  
-volumes:
-  microservices-notification-system:
-
-
-
+    env_file: ./sms-worker/.env
