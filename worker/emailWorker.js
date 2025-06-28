@@ -1,7 +1,7 @@
 require("dotenv").config();
 require("../config/db")();
 const Log = require("../models/Log");
-const emailQueue = require("../queues/emailQueue");
+const {emailQueue} = require("../queues");
 const sendEmail = require("../services/emailService");
 
 
@@ -16,7 +16,6 @@ emailQueue.process(async (job) => {
 });
 
 emailQueue.on("completed", async (job) => {
-  console.log("Email successfully Sent")
   try {
     const log = new Log({
       type: "email",

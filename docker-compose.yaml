@@ -15,7 +15,7 @@ services:
     - mongo
     - redis
   
-  worker:
+  email-worker:
     build: .
     container_name: email-worker
     command: node worker/emailWorker.js
@@ -30,17 +30,38 @@ services:
     - mongo
     - redis
 
+  sms-worker:
+    build: .
+    container_name: sms-worker
+    command: node worker/smsWorker.js
+    environment:
+    - MONGO_URI=${MONGO_URI}
+    - REDIS_URL=${REDIS_URL}
+    - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+    - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+    - TWILIO_VERIFIED_SID=${TWILIO_VERIFIED_SID}
+    volumes:
+    - .:/app
+    depends_on:
+    - mongo
+    - redis
+
   mongo:
     image: mongo
     container_name: mongo-db
     ports:
     - 27017:27017
+    volumes:
+    - microservices-notification-system:/data/db
 
   redis:
     image: redis
     container_name: redis-server
     ports:
     - 6379:6379
+  
+volumes:
+  microservices-notification-system:
 
 
 

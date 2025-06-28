@@ -2,7 +2,7 @@ require("dotenv").config();
 require('../config/db')();
 
 const Log = require("../models/Log");
-const smsQueue = require("../queues/smsQueue");
+const {smsQueue} = require("../queues");
 const sendSms = require("../services/smsService");
 
 smsQueue.process(async (job) => {
