@@ -1,8 +1,6 @@
 const validateEmail = require("../validators/emailValidator");
 const validateSms = require("../validators/smsValidator");
 const { emailQueue, smsQueue } = require("../queues");
-// const emailQueue = require('../queues/emailQueue');
-// const smsQueue = require("../queues/smsQueue");
 
 const emailController = async (req, res) => {
   let email = req.body;
